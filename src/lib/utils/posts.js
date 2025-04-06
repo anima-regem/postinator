@@ -1,5 +1,8 @@
 import { format } from 'date-fns';
 import { readingTime } from 'reading-time-estimator';
+import fs from 'fs/promises';
+import path from 'path';
+import { marked } from 'marked';
 
 /**
  * Processes a blog post and adds additional metadata
@@ -26,6 +29,52 @@ export function processPost(post) {
   };
 }
 
+/**
+ * Gets a post by its slug
+ * @param {String} slug - The post slug
+ * @returns {Object} - The post object
+ */
+export async function getPostBySlug(slug) {
+  try {
+    const postPath = path.join(process.cwd(), 'src/content/posts', `${slug}.md`);
+    const content = await fs.readFile(postPath, 'utf-8');
+    
+    // Extract frontmatter and content
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    if (!frontmatterMatch) {
+      throw new Error('No frontmatter found');
+    }
+    
+    const frontmatter = frontmatterMatch[1];
+    const markdownContent = content.slice(frontmatterMatch[0].length).trim();
+    
+    // Parse frontmatter
+    const metadata = {};
+    frontmatter.split('\n').forEach(line => {
+      const [key, ...valueParts] = line.split(':');
+      if (key && valueParts.length > 0) {
+        const value = valueParts.join(':').trim();
+        try {
+          metadata[key.trim()] = JSON.parse(value);
+        } catch {
+          metadata[key.trim()] = value;
+        }
+      }
+    });
+    
+    // Process the post
+    const post = {
+      ...metadata,
+      slug,
+      content: marked.parse(markdownContent)
+    };
+    
+    return processPost(post);
+  } catch (err) {
+    console.error('Error getting post by slug:', err);
+    throw err;
+  }
+}
 
 /**
  * Sorts posts by date in descending order (newest first)

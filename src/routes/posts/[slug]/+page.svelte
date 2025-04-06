@@ -76,6 +76,16 @@
       <span>{post.formattedDate}</span>
       <span class="mx-2">•</span>
       <span>{Math.ceil(post.readingTime.minutes)} min read</span>
+      <span class="mx-2">•</span>
+      <a 
+        href={`/posts/${post.slug}/behind-the-scenes`} 
+        class="text-theme-1 hover:underline flex items-center"
+      >
+        Behind the Scenes
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
     </div>
     
     {#if post.thumbnail}
