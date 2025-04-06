@@ -1,5 +1,5 @@
 {
-	"name": "postinator",
+	"name": "foss-stories",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -13,8 +13,10 @@
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^5.0.0",
+		"@fontsource/jetbrains-mono": "^5.0.0",
 		"@neoconfetti/svelte": "^2.0.0",
 		"@sveltejs/adapter-auto": "^6.0.0",
+		"@sveltejs/adapter-static": "^3.0.0",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/forms": "^0.5.9",
@@ -24,8 +26,20 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"rehype-slug": "^6.0.0",
+		"remark-unwrap-images": "^4.0.0",
+		"sharp": "^0.33.0",
 		"svelte": "^5.25.0",
 		"tailwindcss": "^4.0.0",
-		"vite": "^6.2.5"
+		"vite": "^6.2.5",
+		"vite-imagetools": "^6.0.0"
+	},
+	"dependencies": {
+		"@google/generative-ai": "^0.2.0",
+		"date-fns": "^3.0.0",
+		"reading-time": "^1.5.0",
+		"reading-time-estimator": "^1.12.0",
+		"until": "^0.1.1",
+		"util": "^0.12.5"
 	}
 }
